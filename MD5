@@ -1,0 +1,17 @@
+aa533be0d4b1b91cfdb19da36bb0d400 *DESCRIPTION
+71be503cffad647e368b0bf3919d3f9a *NAMESPACE
+76624b94021519026415a0ae0abd7580 *R/IterativeFilteration.R
+142e3fe9fc8b22d3ae887003f6166733 *R/deconvolution.R
+f79921cfbe48b8dbe9b64feb33594121 *R/helperFunc.R
+a3abd1b19450d152ceda4f9d23ffe41b *R/vocal.R
+3860ba09240c31fadae2d82be6bff0dd *R/zzz.R
+a1217e6c7f532e6bad7995cf8c9359be *data/commons.RData
+a0c8731d90d13cc46b41e2b8b84ebb55 *data/dcqEx.RData
+cc49985e33347aff15cedfca2a202858 *data/vocalEx.RData
+1db16a2135b5303467b3a43a399e04aa *man/ComICS-internal.Rd
+404ff299262fa1cce70c57b41c1f94a1 *man/ComICS.Rd
+73cf6df1fe1a1618c9a0d4e68b9278c1 *man/commons.Rd
+c6dbb8ab12bcdc0f0153a321fc96cca0 *man/dcq.Rd
+7cd5dceb75dd4650b84f9c14963b961d *man/dcqEx.Rd
+6aae23a0e1c61816de8cd4ea1bfaf375 *man/vocal.Rd
+f5a69a4b036f222387e21a39c099c2f7 *man/vocalEx.Rd
