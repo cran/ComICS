@@ -101,7 +101,7 @@ dcq <- function(reference_data,
 
 
     ### transforming mat to the same original order
-    res_mat <- res_mat[, colnames(reference_data_markers_only_sampled)]
+    res_mat <- res_mat[, colnames(reference_data_markers_only)]
 
     list_of_results_mat <- append(list_of_results_mat, list(res_mat))
 
