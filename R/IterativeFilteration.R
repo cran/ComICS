@@ -19,6 +19,8 @@
   marker_info <- list()
 
   while (num_of_removed_genes != 0) {
+    print(paste("num of iteration:", num_of_iter, sep=" "))
+
     num_of_removed_genes <- 0
 
     print("applying Refinement")
@@ -31,8 +33,8 @@
     eQTL_results_above_thresh_combined_with_iQTL <- eQTL_results_above_thresh[
       as.numeric(eQTL_results_above_thresh) %in% iQTL_results_above_thresh]
 
-    genes_connected_to_eQTL <- unique(rownames(eQTL_marker_set)[
-      which(eQTL_marker_set[, as.numeric(eQTL_results_above_thresh_combined_with_iQTL)]>=T.i, arr.ind=T)])
+    genes_connected_to_eQTL <- unique(rownames(
+      which(eQTL_marker_set[, as.numeric(eQTL_results_above_thresh_combined_with_iQTL)]>=T.e, arr.ind=T)))
 
     print("Refining marker sets space")
 
@@ -48,13 +50,19 @@
                                           marker_set_data[!(marker_set_data %in% new_marker_set_data)])
 
       print(paste("we removed" , length(marker_set_data[!(marker_set_data %in% new_marker_set_data)]),
-                  "genes from", marker_set_name, ":",
-                  marker_set_data[!(marker_set_data %in% new_marker_set_data)], sep=" "))
+                  "genes from", marker_set_name, ":", paste(marker_set_data[!(marker_set_data %in% new_marker_set_data)],
+                                                            collapse = " "), sep=" "))
 
       num_of_removed_genes <- num_of_removed_genes +
         length(marker_set_data[!(marker_set_data %in% new_marker_set_data)])
 
       if (length(new_marker_set_data) != length(marker_set_data)) {
+
+        new_marker_set_data = as.data.frame(new_marker_set_data)
+        names(new_marker_set_data) = marker_set_name
+
+        models[[i]] = new_marker_set_data
+
         res_by_marker_set[[marker_set_name]] <- .create_iQTL_association_scores(reference_data = reference_data,
                                                                              mix_data = expression_data,
                                                                              marker_set = models[[i]][1],

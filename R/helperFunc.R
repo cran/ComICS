@@ -1,5 +1,5 @@
 
-.fishersMethod <- function(value, orig_df) stats::pchisq(-2 * log(value),df=2*length(orig_df),lower.tail=FALSE)
+.fishersMethod <- function(value, orig_df) stats::pchisq(-2 * value,df=2*orig_df,lower.tail=FALSE)
 
 .normalizeData <- function(orig_data, norm_method) {
 
@@ -108,12 +108,13 @@
 }
 
 .combine_iQTL_association_scores <- function(combined_results) {
-  sum_mat <- apply(simplify2array(combined_results), 1:2, sum)
+  reg_pval_from_minus_log = function(x) 10^(-x)
+  mat_log = lapply(combined_results, reg_pval_from_minus_log)
+  mat_ln = lapply(mat_log, log)
 
-  sum_mat[is.na(sum_mat)] <- 0
+  sum_mat <- apply(simplify2array(mat_ln), 1:2, sum)
 
-  sum_mat_log <- 10^(-sum_mat)
-  fisher_mat <- .fishersMethod(sum_mat_log, 2*length(combined_results))
+  fisher_mat <- .fishersMethod(sum_mat, length(combined_results))
   fisher_mat_log <- -log10(fisher_mat)
 
   return(fisher_mat_log)

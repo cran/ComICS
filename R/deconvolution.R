@@ -74,8 +74,9 @@ dcq <- function(reference_data,
   alphaParam <- alpha_used
   lambda_min <- lambda_min
 
-  list_of_results_mat <- list()
+  holder = c()
 
+  list_of_results_mat = list()
   print(paste("running deconvolution on ", colnames(marker_set), sep=""))
   for (n in c(1:number_of_repeats)) {
 
@@ -84,10 +85,12 @@ dcq <- function(reference_data,
     order_in_run <- sample(1:ncol(reference_data_markers_only),
                            precent_of_data*ncol(reference_data_markers_only), replace=FALSE)
 
-    reference_data_markers_only_sampled <- reference_data_markers_only[, order_in_run]
+    holder <- rbind(holder, order_in_run)
 
-    res_mat <- matrix(0, nrow=ncol(mix_data_markers_only), ncol= ncol(reference_data_markers_only_sampled),
-                     dimnames=list(colnames(mix_data_markers_only), colnames(reference_data_markers_only_sampled)))
+    reference_data_markers_only_sampled <- reference_data_markers_only[, holder[n, ]]
+    res_mat <- matrix(NA, nrow=ncol(mix_data_markers_only), ncol= ncol(reference_data_markers_only),
+                      dimnames=list(colnames(mix_data_markers_only), colnames(reference_data_markers_only)))
+
 
     ##### perform elastic-net
     for (i in c(1:ncol(mix_data_markers_only))) {
@@ -96,19 +99,17 @@ dcq <- function(reference_data,
                             mix_data_markers_only[, i], family = c('gaussian'),
                             alpha = alphaParam, nlambda=100, lambda.min.ratio=lambda_min);
       y <- fit2$beta[,100];
-      res_mat[i, ] <- y
+      res_mat[i, match(colnames(reference_data_markers_only_sampled),
+                             colnames(res_mat))] <- y
     }
 
-
     ### transforming mat to the same original order
-    res_mat <- res_mat[, colnames(reference_data_markers_only)]
-
     list_of_results_mat <- append(list_of_results_mat, list(res_mat))
 
   }
 
-  average_mat <- apply(simplify2array(list_of_results_mat), 1:2, mean)
-  stdev_mat <- apply(simplify2array(list_of_results_mat), 1:2, stats::sd)
+  average_mat <- apply(simplify2array(list_of_results_mat), 1:2, mean, na.rm=T)
+  stdev_mat <- apply(simplify2array(list_of_results_mat), 1:2, stats::sd, na.rm=T)
 
   return(list("average"=average_mat, "stdev"=stdev_mat))
 }
