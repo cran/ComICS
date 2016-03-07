@@ -70,9 +70,9 @@
       }
     }
 
-    if (num_of_removed_genes == 0)
+    if (num_of_removed_genes == 0) {
       break
-    else {
+    } else {
       fisher_combined_res <- .combine_iQTL_association_scores(res_by_marker_set)
     }
     num_of_iter <- num_of_iter + 1
