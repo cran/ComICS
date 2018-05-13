@@ -1,8 +1,8 @@
-2d5ce02c06f3cb4b8d0b44322d27b517 *DESCRIPTION
+4c3bd8dd0eb6d6da0aab43f396efb1ce *DESCRIPTION
 71be503cffad647e368b0bf3919d3f9a *NAMESPACE
 bc16168412772a8191edb6894e43720c *R/IterativeFilteration.R
 6993f6fb353f9ec6ae65c16f9899cfd3 *R/deconvolution.R
-6ba5281f0c07db4b9efe070353d5063e *R/helperFunc.R
+8cb123b406973b852e6b7e70daadf077 *R/helperFunc.R
 a3abd1b19450d152ceda4f9d23ffe41b *R/vocal.R
 3860ba09240c31fadae2d82be6bff0dd *R/zzz.R
 a1217e6c7f532e6bad7995cf8c9359be *data/commons.RData

@@ -20,6 +20,9 @@
   else stop("only All or None or name of individual from the dataset is considered.")
 
   normed_data <- orig_data - subtract
+  if (ind == 1) {
+	normed_data = normed_data[, -ind]
+  }
 
   return(normed_data)
 }
